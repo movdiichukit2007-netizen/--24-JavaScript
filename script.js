@@ -40,3 +40,54 @@ class Parcel {
         return Parcel.#count;
     }
 }
+
+// 2. Базовий клас калькулятора вартості
+class ParcelPriceCalculator {
+    constructor(ratePerKg) {
+        this.ratePerKg = ratePerKg;
+    }
+
+    calculate(parcel) {
+        return parcel.chargeableWeight * this.ratePerKg;
+    }
+
+    getName() {
+        return "Базовий тариф";
+    }
+}
+
+// 3. Класи-нащадки
+class PostOfficeParcelPriceCalculator extends ParcelPriceCalculator {
+    constructor() {
+        super(15);
+    }
+
+    getName() {
+        return "Відділення пошти";
+    }
+}
+
+class CourierParcelPriceCalculator extends ParcelPriceCalculator {
+    constructor() {
+        super(30);
+    }
+
+    getName() {
+        return "Кур'єрська доставка";
+    }
+}
+
+class ExpressParcelPriceCalculator extends ParcelPriceCalculator {
+    constructor() {
+        super(30);
+        this.expressRatePerKg = 25;
+    }
+
+    calculate(parcel) {
+        return super.calculate(parcel) + parcel.chargeableWeight * this.expressRatePerKg;
+    }
+
+    getName() {
+        return "Експрес-доставка";
+    }
+}
